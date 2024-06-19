@@ -1,0 +1,7 @@
+path: /home/toi/myproject/yolotraining/data/training_data 
+train: train
+val: test 
+
+# Classes
+names:
+  0: field

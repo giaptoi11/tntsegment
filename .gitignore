@@ -3,4 +3,8 @@ after_filter/
 before_filter/
 test_images/
 .vscode
-
+**/*.jpg
+**/*.tif
+**/*.zip
+**/*.json
+**/*.txt
