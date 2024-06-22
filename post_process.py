@@ -99,7 +99,7 @@ def random_color():
   blue = random.randint(0, 255)
   return (red, green, blue)
     
-all_data = json.loads(open('/home/toi/myproject/submission.json').read())
+all_data = json.loads(open('/home/toi/myproject/submitsion_sh.json').read())
 new_data = {"images": []}
 for data in all_data["images"]:
     filename = data["file_name"]
@@ -129,10 +129,13 @@ for data in all_data["images"]:
         for idx in possible_overlaps_indices:
             other = polygons[idx]  # Lấy polygon từ chỉ số
             if polygon != other:  # Loại bỏ chính polygon đó
-                overlap = polygon.intersection(other)
-                if not overlap.is_empty:
-                    overlaps.append(overlap)
-                    polygon_info.append((index, idx, overlap))
+                try:
+                    overlap = polygon.intersection(other)
+                    if not overlap.is_empty:
+                        overlaps.append(overlap)
+                        polygon_info.append((index, idx, overlap))
+                except:
+                    continue
                         
                         
     #Write folder before filter
@@ -262,7 +265,7 @@ for data in all_data["images"]:
     })
     cv2.imwrite(f"/home/toi/myproject/after_filter/{filename}.jpg", image)
 
-with open("/home/toi/myproject/submission1.json", "w") as f:
+with open("/home/toi/myproject/submissionsh2.json", "w") as f:
     json.dump(new_data, f)
     
     
