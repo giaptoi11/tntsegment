@@ -86,8 +86,11 @@ class Process():
                 segmentation = annotation["segmentation"]
                 array_segmentation = np.array([segmentation], dtype=np.int32).reshape(-1, 2)
                 
-                img_with_mask = cv2.fillPoly(img.copy(), [array_segmentation], (0, 0, 0))
-                segment_img = cv2.bitwise_xor(img, img_with_mask)
+                white_img = np.zeros_like(img)
+                img_with_mask = cv2.fillPoly(white_img, [array_segmentation], (1, 1, 1))
+                segment_img = img_with_mask*img
+                # segment_img = cv2.bitwise_xor(img, img_with_mask)
+                
                 bbox = self.box_from_polygon(array_segmentation)
                 
                 new_segment = array_segmentation.copy()
@@ -106,12 +109,13 @@ class Process():
                     
                 print(f"{file_name.split('.')[0]}_{idx}.jpg")
                 # cv2.imshow('Result', img_crop)
+                # cv2.imshow("mask1", mask1)
                 # if cv2.waitKey(0) & 0xFF == ord('q'):
                 #     cv2.destroyAllWindows()
                 #     exit()
                 # if cv2.waitKey(1) & 0xFF == ord('n'):
                 #     cv2.destroyAllWindows()
-    
+            break
 process = Process()
 process.load_json()
 process.save_part_images()
